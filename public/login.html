@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="javascripts/jquery.js"></script>
+</head>
+<body>
+    用户名：<input type="text" id="uname"><br>
+    密码：<input type="password" id="password"><br>
+    <button id="login">登陆</button>
+</body>
+</html>
+<script>
+    $("#login").click(()=>{
+        if($("#uname").val()=="" ||$("#password").val()=="") {
+            alert
+        }
+        $.post("/users/login",{
+            name:$("#uname").val(),
+            password:$("#password").val()
+        }).then((res)=>{
+            if(res.data){
+                sessionStorage.setItem("username",$("#uname").val())
+                 location.href="/list.html"
+            }else{
+                alert("登陆失败")
+            }
+        })
+    })
+</script>

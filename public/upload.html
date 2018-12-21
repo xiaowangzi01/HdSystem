@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="javascripts/jquery.js"></script>
+    <script src="javascripts/nav.js"></script>
+</head>
+<body>
+    <div id="nav"></div>
+    <div id="box">
+        <input type="file" id="myfile">
+        <button id="btn">上传</button>
+    </div>
+</body>
+</html>
+<script>
+    nav($("#nav"))
+    $("#btn").click(function(){
+        var form = new FormData;
+        form.append("wj",myfile.files[0])
+        $.ajax({
+            type:"POST",
+            url:"/upload",
+            cache:false,
+            processData:false,
+            contentType:false,
+            data:form
+        }).then((res)=>{
+            var img = new Image;
+            img.src=res.path;
+            document.body.append(img);
+        })
+    })
+</script>

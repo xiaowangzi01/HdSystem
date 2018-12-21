@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="javascripts/jquery.js"></script>
+</head>
+<body>
+    用户名：<input type="text" id="uname"><span id="info"></span><br>
+    密码：<input type="password" id="password"><br>
+    <button id="register">注册</button>
+
+</body>
+</html>
+<script>
+    
+    $("#uname").blur(()=>{
+        if($("#uname").val()==""){
+            $("#info").html("用户名不能为空");
+            return;
+        }
+        $.post("/users/findregister",{
+            name:$("#uname").val()
+        }).then((res)=>{
+            if(res.data){
+                $("#info").html("用户名已存在")
+            }else{
+                $("#info").html("√")
+                $("#register").click(()=>{
+                    if($("#uname").val()=="" || $("#password").val()=="") return;
+                    $.post("/users/register",{
+                        name:$("#uname").val(),
+                        password:$("#password").val()
+                    }).then((res)=>{
+                        if(res.ret){
+                            alert("注册成功")
+                            location.href="/login.html"
+                        }else{
+                            alert("注册失败")
+                        }
+                    })
+                })
+            }
+        })
+    })
+</script>

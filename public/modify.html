@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="javascripts/jquery.js"></script>
+</head>
+<body>
+    姓名：<input type="text" id="uname">
+    年龄：<input type="text" id="uage">
+    <button id="btn">确认修改</button>
+</body>
+</html>
+<script>
+    var id = location.search.substring(1).split("=")[1];
+    $.get("/modifyItem/"+id).then((res)=>{
+        $("#uname").val(res[0].name);
+        $("#uage").val(res[0].age)
+    })
+    $("#btn").click(()=>{
+        $.get("/modifyok/"+id+"/"+$("#uname").val()+"/"+$("#uage").val()).then((res)=>{
+            if (res.ret) {
+                alert("修改成功");
+                location.href="/list.html"
+            }else{
+                alert("修改失败")
+            }
+        })
+    })
+</script>
