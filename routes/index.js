@@ -8,6 +8,7 @@ router.get('/', function(req, res, next) {
 });
 router.use(function(req,res,next){
   if(req.url!=="/users/login"&&req.url!=="/users/register"&&req.url!=="/users/findregister"){
+    //验证token
     jwt.verify(req.cookies.token,"haha",(err,decode)=>{
       if(!err){
         next();

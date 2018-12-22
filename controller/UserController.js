@@ -22,7 +22,9 @@ var login= (req,res)=>{
                    .digest('hex');
     UserModel.findUser({name,password:hash},(data)=>{
         if(data.length>0){
+            //设置令牌
             var token = jwt.sign({name,time:new Date().getTime()},"haha",{expiresIn:1000});
+            //设置cookie
             res.cookie("token",token)
             res.json({
                 ret:true,
@@ -53,7 +55,7 @@ var findUser = (req,res)=>{
         }
     })
 }
-//查看令牌，防跳
+//退出
 var quit = (req,res)=>{
     if(req.cookies.token){
         res.cookie("token","");
