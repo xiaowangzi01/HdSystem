@@ -21,6 +21,7 @@
             $("#info").html("用户名不能为空");
             return;
         }
+        //发送请求判断用户是否存在
         $.post("/users/findregister",{
             name:$("#uname").val()
         }).then((res)=>{
@@ -30,6 +31,7 @@
                 $("#info").html("√")
                 $("#register").click(()=>{
                     if($("#uname").val()=="" || $("#password").val()=="") return;
+                    //发送注册请求
                     $.post("/users/register",{
                         name:$("#uname").val(),
                         password:$("#password").val()

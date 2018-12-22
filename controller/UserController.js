@@ -2,6 +2,7 @@ const UserModel = require("../model/UserModel");
 
 const crypto = require('crypto');
 const jwt =require("jsonwebtoken");
+//注册
 var register = (req,res)=>{
     const hash = crypto.createHmac('sha256', req.body.password)
                    .update('I love cupcakes')
@@ -13,6 +14,7 @@ var register = (req,res)=>{
         })
     })
 }
+//登陆
 var login= (req,res)=>{
     let{name,password} = req.body;
     const hash = crypto.createHmac('sha256', password)
@@ -34,6 +36,7 @@ var login= (req,res)=>{
         }
     })
 }
+//判断用户名是否存在
 var findUser = (req,res)=>{
     let{name} = req.body;
     UserModel.findUser({name},(data)=>{
@@ -50,6 +53,7 @@ var findUser = (req,res)=>{
         }
     })
 }
+//查看令牌，防跳
 var quit = (req,res)=>{
     if(req.cookies.token){
         res.cookie("token","");
